@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jupiterx0910/agent-creativity-frontier/schemas/provenance-tier.schema.json",
+  "title": "FrontierOS provenance record",
+  "description": "Records source purity, AI involvement and the transformation chain for a knowledge node.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "tier",
+    "source_type",
+    "captured_at",
+    "ai_involvement",
+    "raw_retained",
+    "status"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tier": {
+      "type": "string",
+      "enum": ["H0", "H1", "M0", "M1"],
+      "description": "H0: human-origin primary; H1: human-reviewed/peer-reviewed; M0: traceable human-confirmed AI-assisted; M1: unknown or highly synthetic."
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "interview",
+        "field_note",
+        "sketch",
+        "experiment",
+        "original_work",
+        "paper",
+        "dataset",
+        "book",
+        "web",
+        "ai_output",
+        "other"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "author_or_origin": {
+      "type": "string"
+    },
+    "captured_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "raw_uri": {
+      "type": ["string", "null"],
+      "format": "uri-reference"
+    },
+    "raw_retained": {
+      "type": "boolean"
+    },
+    "checksum": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "ai_involvement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "models"],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": ["none", "assistive", "substantial", "unknown"]
+        },
+        "models": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true
+        },
+        "human_confirmed": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "parent_source_ids": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "transformations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "performed_at"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["transcription", "translation", "summary", "extraction", "rewrite", "annotation", "aggregation", "other"]
+          },
+          "performed_by": {"type": "string"},
+          "performed_at": {"type": "string", "format": "date-time"},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "license_or_consent": {
+      "type": ["string", "null"]
+    },
+    "reviewed_by": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "status": {
+      "type": "string",
+      "enum": ["core", "candidate", "quarantined", "cold_storage"]
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"tier": {"const": "H0"}}, "required": ["tier"]},
+      "then": {
+        "properties": {
+          "raw_retained": {"const": true},
+          "ai_involvement": {
+            "properties": {"level": {"const": "none"}}
+          }
+        }
+      }
+    },
+    {
+      "if": {"properties": {"tier": {"const": "M1"}}, "required": ["tier"]},
+      "then": {
+        "properties": {"status": {"const": "quarantined"}}
+      }
+    }
+  ]
+}
