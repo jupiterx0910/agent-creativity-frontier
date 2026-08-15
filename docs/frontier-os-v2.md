@@ -1,7 +1,7 @@
-# FrontierOS v2：让 Agent 持续处于创意前沿
+# FrontierOS v2.1：让 Agent 持续处于创意前沿
 
 **研究快照：2026-08-15（Asia/Singapore）**  
-**定位：** CreativeOS-99 的第二代架构；目标不是稳定地产出“像好作品的内容”，而是持续发现尚未被模型平均化的新信号，并将人的品味与真实世界结果转化为长期复利资产。
+**定位：** CreativeOS-99 的第二代架构；v2.1 增加 Inference Lab、Evaluator Audit、人类能力保留指标和 claim 级证据治理。目标不是稳定地产出“像好作品的内容”，而是持续发现尚未被模型平均化的新信号，并将人的品味与真实世界结果转化为长期复利资产。
 
 ## 1. 结论
 
@@ -59,7 +59,8 @@ Moat = HumanRaw \times OpenEndedLineage \times MultiDimTaste \times ExecutedOutc
 ```mermaid
 flowchart TD
     O["Frontier Observatory\n发现未平均化信号"] --> A["Open-ended Archive\n保留谱系与踏脚石"]
-    A --> T["Human Taste Lab\n判断何者值得追求"]
+    A --> I["Inference Lab\n扩张可达候选空间"]
+    I --> T["Human Taste Lab\n判断何者值得追求"]
     T --> R["Reality Lab\n原型、发布与实验"]
     R --> G["Learning Governor\n更新检索、算子与品味"]
     G --> O
@@ -91,7 +92,21 @@ flowchart TD
 
 每个候选保存父节点、知识节点、创意算子、模型与配置、人类选择理由、拒绝原因、执行结果和后代。搜索使用 islands + MAP-Elites 或其他质量—多样性方法；各岛独立演化，只进行低频迁移，避免全局单一冠军导致过早收敛。
 
-### 4.3 Human Taste Lab：人类品味实验室
+### 4.3 Inference Lab：采样、解码与局部创意模式
+
+Inference Lab 把模型的生成物理从隐式参数升级为版本化实验资产：
+
+- 对每个模型、版本、创作域和阶段分别校准 temperature、top-p、min-p、seed 和候选预算；
+- 使用独立分支和异构模型扩大真实分布差异；
+- 对开放模型研究 base/instruct routing、CreativeInstruct 式 span switch 和 BILLY 式 activation steering；
+- 不把 AUT/DAT 短答结论直接用于长篇、视觉、产品或科学构想；
+- 只有扩大结构/执行 Pareto 前沿的配置才进入生产默认。
+
+Min-p 是值得优先测试的 sampler，不是跨模型唯一答案。在原论文同为 temperature=1.5 的创意写作设置中，56.54% 相对 53.18% 是 **+3.36 个百分点**，或约 **+6.32% 相对提升**；两种口径不得混用。完整协议见 [Inference Lab](inference-lab.md)。
+
+所有循环内 Judge 必须通过 [Evaluator Audit](evaluator-audit.md)。多轮 Agent 会逐步迎合评分器；如果评分器偏爱长度、润色和熟悉结构，搜索只会更快产生精致的平庸。
+
+### 4.4 Human Taste Lab：人类品味实验室
 
 品味分三层，不能压入一个 Soul 或 Reward：
 
@@ -101,7 +116,7 @@ flowchart TD
 
 人类反馈至少有三种结果：`keep`、`reject`、`interesting_uncertain`。第三类不是“中分”，而是继续探索的资源。详见 [human-taste-protocol.md](human-taste-protocol.md)。
 
-### 4.4 Reality Lab：真实执行实验室
+### 4.5 Reality Lab：真实执行实验室
 
 创意必须离开文本评分器：
 
@@ -116,7 +131,7 @@ flowchart TD
 
 反馈建议在 1 周、1 个月、3 个月回写。否则系统只能优化“第一次看上去很厉害”。
 
-### 4.5 Learning Governor：学习治理器
+### 4.6 Learning Governor：学习治理器
 
 治理器不直接重写整个 Soul。它根据证据更新不同资产：
 
@@ -186,6 +201,19 @@ evidence:
 
 机器可读定义见 [`creative-candidate.schema.json`](../schemas/creative-candidate.schema.json)。
 
+### 5.5 Claim 级证据账本
+
+“论文数字正确”不等于工程结论正确。每条定量或定性结论必须单独保存：
+
+- treatment、baseline、单位和置信区间；
+- 绝对百分点与相对百分比，禁止混写；
+- 数字来自论文直接报告还是仓库派生计算；
+- 论文版本、表格/页码、任务、模型和评审类型；
+- 该证据支持什么、不支持什么；
+- 当前是生产默认、实验候选、观察项还是已拒绝。
+
+机器可读定义见 [`evidence-claim.schema.json`](../schemas/evidence-claim.schema.json)。
+
 ## 6. 搜索与选择：保持多条不收敛路线
 
 每轮应先分配探索预算，再生成候选。以下比例是**工程启发式，不是自然定律**：
@@ -231,6 +259,8 @@ F(x)=[Q,N_t,N_s,D,T,E,P]
 | 来源纯度 | H0/H1 对最终候选的可追溯贡献占比 |
 | 模型支配度 | 最大单一模型家族对保留候选的贡献份额 |
 | 未知保留率 | `interesting_uncertain` 节点在约定窗口内未被过早删除的比例 |
+| 人类能力保留 | 移除 AI 后，人类独立表现相对介入前的变化 |
+| 评估器前沿压制率 | 被 Judge 淘汰、后来却产生高价值后代的候选比例 |
 
 同时报告最近邻风险、Judge 分歧、未知来源率和模型/语言/模态贡献，防止指标表面增长。
 
@@ -262,8 +292,11 @@ F(x)=[Q,N_t,N_s,D,T,E,P]
 ## 10. 实施入口
 
 - [90 天实施路线](90-day-roadmap.md)
+- [Inference Lab](inference-lab.md)
+- [Evaluator Audit](evaluator-audit.md)
 - [人类品味协议](human-taste-protocol.md)
 - [v2 一手论文证据](references.md)
 - [来源分层 Schema](../schemas/provenance-tier.schema.json)
 - [品味事件 Schema](../schemas/taste-event.schema.json)
 - [候选谱系 Schema](../schemas/creative-candidate.schema.json)
+- [证据 Claim Schema](../schemas/evidence-claim.schema.json)
