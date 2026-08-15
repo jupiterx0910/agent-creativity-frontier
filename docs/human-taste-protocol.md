@@ -111,7 +111,29 @@ Priority(x)=Potential(x)\times Uncertainty(x)\times FrontierGain(x) / HumanSecon
 
 只报告 accuracy 会鼓励模型选择保守多数项。至少同时报告校准、Frontier recovery 和候选多样性。
 
-## 9. 推荐采样节奏
+## 9. 人类能力保留：不能只让作品在 AI 在线时变好
+
+系统必须区分两个目标：
+
+1. `ArtifactLift`：AI 在场时，作品相对无 AI 基线的提升；
+2. `HumanCapabilityRetention`：移除 AI 后，人独立创作能力是否保持或提升。
+
+建议在每个训练周期前后加入等难度、无 AI 的隐藏任务：
+
+\[
+HumanCapabilityRetention = Performance_{unassisted,post} - Performance_{unassisted,pre}
+\]
+
+至少分别测量原创性、结构覆盖、问题选择、品味解释和自我效能。AI 在场时成绩提高、移除后表现下降，应标为“工具依赖”，不能被报告为人类创造力增强。
+
+[Human Creativity in the Age of LLMs](https://arxiv.org/html/2410.03703v1)的预注册实验显示，LLM 策略指导组在后续无辅助任务上可能表现更差；但“直接给想法普遍优于给方法”不是该研究能支持的结论，因为想法组与策略组的若干直接比较没有达到显著差异。FrontierOS 因而采用：
+
+- 人先留下原始种子；
+- AI 同时提供候选和可解释操作，但不替人完成所有关键选择；
+- 定期进行无 AI 回放；
+- 把长期能力保留与即时作品提升分开报告。
+
+## 10. 推荐采样节奏
 
 ### 冷启动（0–100 个事件）
 
@@ -134,7 +156,7 @@ Priority(x)=Potential(x)\times Uncertainty(x)\times FrontierGain(x) / HumanSecon
 - 每季度人工审计 Core 变更；
 - 不删除原始理由，不以模型生成解释替换人的原话。
 
-## 10. 单次评审模板
+## 11. 单次评审模板
 
 ```yaml
 decision: interesting_uncertain
