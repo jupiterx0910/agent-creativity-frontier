@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jupiterx0910/agent-creativity-frontier/schemas/creative-candidate.schema.json",
+  "title": "FrontierOS creative candidate",
+  "description": "A lineage-aware creative candidate with multidimensional scores and real-world outcomes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "candidate_id",
+    "lineage_id",
+    "niche",
+    "created_at",
+    "content_ref",
+    "parents",
+    "knowledge_nodes",
+    "operators",
+    "generation_config",
+    "scores",
+    "status"
+  ],
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 1},
+    "lineage_id": {"type": "string", "minLength": 1},
+    "niche": {
+      "type": "string",
+      "enum": [
+        "quality_low_risk",
+        "novel_medium_feasibility",
+        "taste_aligned",
+        "controversial_high_potential",
+        "remote_analogy",
+        "anti_consensus",
+        "unexplained_attractor",
+        "custom"
+      ]
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "content_ref": {"type": "string", "minLength": 1},
+    "parents": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "descendants": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "knowledge_nodes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "operators": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "source_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "generation_config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_family", "model_version", "run_id"],
+      "properties": {
+        "model_family": {"type": "string"},
+        "model_version": {"type": "string"},
+        "run_id": {"type": "string"},
+        "language": {"type": "string"},
+        "modality": {"type": "string"},
+        "temperature": {"type": ["number", "null"], "minimum": 0},
+        "seed": {"type": ["integer", "null"]},
+        "context_digest": {"type": ["string", "null"]}
+      }
+    },
+    "scores": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quality",
+        "temporal_novelty",
+        "structural_novelty",
+        "archive_coverage_gain",
+        "taste_surprise",
+        "execution_survival",
+        "provenance_reliability"
+      ],
+      "properties": {
+        "quality": {"type": "number", "minimum": 0, "maximum": 1},
+        "temporal_novelty": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["d30", "d90", "d365"],
+          "properties": {
+            "d30": {"type": "number", "minimum": 0, "maximum": 1},
+            "d90": {"type": "number", "minimum": 0, "maximum": 1},
+            "d365": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "structural_novelty": {"type": "number", "minimum": 0, "maximum": 1},
+        "archive_coverage_gain": {"type": "number", "minimum": 0, "maximum": 1},
+        "taste_surprise": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["core", "context", "frontier"],
+          "properties": {
+            "core": {"type": "number", "minimum": 0, "maximum": 1},
+            "context": {"type": "number", "minimum": 0, "maximum": 1},
+            "frontier": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        },
+        "execution_survival": {"type": "number", "minimum": 0, "maximum": 1},
+        "provenance_reliability": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "judge_disagreement": {"type": "number", "minimum": 0, "maximum": 1},
+    "nearest_neighbor_risk": {"type": "number", "minimum": 0, "maximum": 1},
+    "human_rationale": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "rejection_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "execution_outcomes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["domain", "observed_at", "window", "metric", "value"],
+        "properties": {
+          "domain": {"type": "string"},
+          "observed_at": {"type": "string", "format": "date-time"},
+          "window": {"type": "string", "enum": ["immediate", "1w", "1m", "3m", "custom"]},
+          "metric": {"type": "string"},
+          "value": {"type": ["number", "string", "boolean"]},
+          "baseline": {"type": ["number", "string", "boolean", "null"]},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "pareto_archive", "interesting_uncertain", "executing", "rejected", "cold_storage"]
+    }
+  }
+}
