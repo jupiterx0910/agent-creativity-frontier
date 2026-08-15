@@ -1,0 +1,60 @@
+{
+  "$schema": "../../schemas/evidence-claim.schema.json",
+  "claim_id": "min-p-alpacaeval-creative-writing-t15",
+  "claim_text": "At temperature 1.5 on the paper's AlpacaEval Creative Writing setup, min-p=0.1 achieved a 56.54% win rate versus 53.18% for temperature-only sampling.",
+  "status": "verified",
+  "observation": {
+    "treatment_value": 56.54,
+    "baseline_value": 53.18,
+    "unit": "win-rate percent",
+    "absolute_effect": 3.36,
+    "relative_effect_percent": 6.32,
+    "confidence_interval": null,
+    "p_value": null,
+    "effect_is_reported_or_derived": "derived"
+  },
+  "source": {
+    "title": "Turning Up the Heat: Min-p Sampling for Creative and Coherent LLM Outputs",
+    "authors": [
+      "Nguyen Nhat Minh",
+      "Andrew Baker",
+      "Clement Neo",
+      "Allen Roush",
+      "Andreas Kirsch",
+      "Ravid Shwartz-Ziv"
+    ],
+    "url": "https://arxiv.org/html/2407.01082v8",
+    "venue": "ICLR 2025",
+    "publication_status": "peer_reviewed",
+    "version": "arXiv v8",
+    "locator": "Creative-writing comparison table: temperature-only and min-p at tau=1.5"
+  },
+  "evidence": {
+    "evaluation_type": "llm_judge",
+    "sample_size": 696,
+    "tasks": ["AlpacaEval Creative Writing"],
+    "models": ["openchat-3.5-0106"],
+    "languages": ["English"],
+    "human_population": null
+  },
+  "scope": {
+    "supports": [
+      "Min-p is a strong sampler candidate for preserving creative-writing quality at elevated temperature in this benchmark.",
+      "FrontierOS should test min-p in a model- and domain-specific sampling grid."
+    ],
+    "does_not_support": [
+      "Min-p is the unique optimal sampler for all models or creative domains.",
+      "The effect is a 6.6 percentage-point improvement.",
+      "The reported win rate is equivalent to expert human blind review."
+    ],
+    "transfer_risk": "high"
+  },
+  "engineering_decision": {
+    "action": "Include min-p=0.05/0.1/0.2 in Inference Lab grids and compare on hidden domain tasks.",
+    "default_or_experiment": "experiment",
+    "reproduction_required": true
+  },
+  "verified_by": ["FrontierOS evidence review"],
+  "verified_at": "2026-08-15T22:30:00+08:00",
+  "notes": "The absolute and relative effects are derived from the two reported win rates and are intentionally stored separately."
+}
