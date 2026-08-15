@@ -383,6 +383,36 @@ C = 100 \times Q^{0.25} N^{0.25} D^{0.15} U^{0.15} V^{0.10} S^{0.10} - P
 
 第一，不要先写一份巨型 Soul；先搭评测、日志和六库最小数据模型。第二，把首批 8–12 本书和关键论文拆成 100–300 个原子知识单元，而不是书摘。第三，用 30 天验证阶段化检索、分相、结构化重组、跨语言种群和盲审的独立增益。第四，把你的校准变成高信息量的成对选择与原因标注，使其进入品味与实验库。第五，累计真实偏好数据后再训练 CRPO/Reward Model。
 
+## FrontierOS v2：从创意增强到持续前沿发现
+
+CreativeOS-99 v1 解决的是“如何比常规 Agent 更会生成和筛选”；下一阶段必须解决“当 AI 内容充满互联网后，如何持续获得尚未被模型平均化的信号”。静态 Soul、通用 Skill、书籍摘要和普通 RAG 都会快速商品化，长期壁垒应升级为：
+
+\[
+HumanRaw \times OpenEndedLineage \times MultiDimTaste \times ExecutedOutcome \times TimeSplitEval
+\]
+
+v2 增加五个连续环节：
+
+1. **Frontier Observatory**：采集人类一手观察、新论文的反常结果、跨语言小众实践和 30/90/365 天新信号；
+2. **Open-ended Archive**：用 islands、MAP-Elites、创意谱系和 Pareto 档案保留多条生态位，不只保留总分冠军；
+3. **Human Taste Lab**：将品味拆为稳定的 TasteCore、项目化 TasteContext 和主动保护未知的 TasteFrontier；
+4. **Reality Lab**：让候选进入读者、市场、原型或实验，并在 1 周、1 月、3 月回写结果；
+5. **Learning Governor**：根据来源、Judge 分歧、人的理由和执行结果更新知识节点、算子、搜索预算与品味模型。
+
+专门创意知识库同步升级：所有材料采用 H0/H1/M0/M1 来源分层；保留原件而不只保存摘要；用“功能—机制—迁移条件—失败条件”检索跨域关系；每个候选保存父节点、算子、模型配置、人类理由、现实结果与后代。评分保留七维向量 \(F(x)=[Q,N_t,N_s,D,T,E,P]\)，不压成单一 Reward；高质量但高分歧、暂时无法解释却有吸引力的候选进入 `interesting_uncertain` 档案。
+
+完整的证据、架构、数据协议和路线已独立版本化：
+
+- [FrontierOS v2 完整架构](../docs/frontier-os-v2.md)
+- [Human Taste Protocol](../docs/human-taste-protocol.md)
+- [90 天实施路线](../docs/90-day-roadmap.md)
+- [v2 新增一手论文证据](../docs/references.md)
+- [来源分层 Schema](../schemas/provenance-tier.schema.json)
+- [品味事件 Schema](../schemas/taste-event.schema.json)
+- [创意候选与谱系 Schema](../schemas/creative-candidate.schema.json)
+
+v2 的核心判断是：人类不应只在最后批准作品。人选择值得追求的问题，贡献生活与现场的异质性，指出应保护的异常，并在低保真阶段锁定关键决定；AI 扩张搜索、维护谱系、发现跨域关系、量化不确定性和执行验证。只有两者形成这个闭环，系统才可能在模型越来越同质、合成内容越来越多的环境中持续走在前沿。
+
 ## 进一步问题
 
 1. 你最想领先的前三个创作域是什么：写作、视觉、品牌、产品、科学构想、代码/游戏，还是其他？
