@@ -1,6 +1,6 @@
 # Agent Creativity Frontier
 
-一套面向 99th-percentile 创作能力的 Agent 研究报告、FrontierOS v2 规范与可运行交互站点。
+一套面向 99th-percentile 创作能力的 Agent 研究报告、FrontierOS v2.1 规范与可运行交互站点。
 
 研究快照：**2026-08-15（UTC+8）**  
 在线报告：<https://agent-creativity-frontier.focus8351.chatgpt.site>
@@ -18,7 +18,7 @@
 
 仓库中的基础报告给出了六库架构、阶段化检索、量化指标、论文证据台账、书籍算子化方案、30 天验证路线，以及“超越 99% 常规 Agent 配置”的可审计统计定义。FrontierOS v2 在此基础上增加了：前沿信号发现、来源纯度分层、开放式创意谱系、多维人类品味、真实执行反馈、时间切分评测和 90 天建设路线。
 
-## FrontierOS v2
+## FrontierOS v2.1
 
 模型、Soul、提示词和静态书库会逐步商品化。下一阶段真正难复制的能力是：
 
@@ -27,6 +27,8 @@
 系统不再只问“本轮哪一个答案最好”，而是持续回答四个问题：哪些新信号尚未进入模型平均先验；哪些暂时不成熟的路线值得保留；人的品味在哪些维度上稳定或变化；哪些创意经过真实世界后仍然成立。
 
 - [FrontierOS v2 完整架构](docs/frontier-os-v2.md)
+- [Inference Lab：采样、解码与局部创意模式](docs/inference-lab.md)
+- [Evaluator Audit：评估器偏差审计](docs/evaluator-audit.md)
 - [人类品味协议](docs/human-taste-protocol.md)
 - [90 天实施路线](docs/90-day-roadmap.md)
 - [新增论文证据台账](docs/references.md)
@@ -39,15 +41,19 @@
 │   └── agent-creativity-frontier-2026-08-15.md  # 完整研究报告
 ├── docs/
 │   ├── frontier-os-v2.md                         # 持续前沿发现系统
+│   ├── inference-lab.md                          # 采样、解码与模型内部创意模式
+│   ├── evaluator-audit.md                        # 循环内评估器审计
 │   ├── human-taste-protocol.md                   # TasteCore/Context/Frontier
 │   ├── 90-day-roadmap.md                         # 可验收实施路线
 │   └── references.md                             # v2 一手论文证据
 ├── schemas/
 │   ├── provenance-tier.schema.json               # 来源纯度与 AI 参与度
 │   ├── taste-event.schema.json                   # 人类品味反馈事件
-│   └── creative-candidate.schema.json            # 创意谱系与七维结果
+│   ├── creative-candidate.schema.json            # 创意谱系与七维结果
+│   └── evidence-claim.schema.json                 # claim 级证据与效应量口径
 ├── data/
-│   └── artifact.json                            # 报告 manifest 与数据快照
+│   ├── artifact.json                            # 报告 manifest 与数据快照
+│   └── claims/min-p-creative-writing.json       # claim 级证据示例
 ├── worker/
 │   ├── README.md                                # 生成运行时说明
 │   └── generated/index.part-*.txt               # 可重组的 Worker 源码分片
@@ -65,6 +71,8 @@
 
 - [完整 Markdown 报告](report/agent-creativity-frontier-2026-08-15.md)
 - [FrontierOS v2：从创意增强到持续前沿发现](docs/frontier-os-v2.md)
+- [Inference Lab 实验规范](docs/inference-lab.md)
+- [Evaluator Audit 审计规范](docs/evaluator-audit.md)
 - [可直接实现的人类品味协议](docs/human-taste-protocol.md)
 - [FrontierOS 90 天路线](docs/90-day-roadmap.md)
 - [结构化报告数据](data/artifact.json)
@@ -97,4 +105,4 @@ npm run check
 
 ## 内容更新原则
 
-新增论文、创意算子或知识节点时，应同时记录出处、触发条件、适用范围、失效条件和测试；不要把未经验证的长书摘直接加入生成上下文。
+新增论文、创意算子或知识节点时，应同时记录出处、原始数值、效应量口径、任务、模型、评审类型、适用范围、失效条件和测试；使用 [evidence claim schema](schemas/evidence-claim.schema.json) 区分论文观察、派生计算与工程推断。不要把未经验证的长书摘直接加入生成上下文。
