@@ -1,6 +1,6 @@
 # Agent Creativity Frontier
 
-一套面向 99th-percentile 创作能力的 Agent 研究报告与可运行交互站点。
+一套面向 99th-percentile 创作能力的 Agent 研究报告、FrontierOS v2 规范与可运行交互站点。
 
 研究快照：**2026-08-15（UTC+8）**  
 在线报告：<https://agent-creativity-frontier.focus8351.chatgpt.site>
@@ -16,7 +16,20 @@
 5. 用结构化重组、多样性维持和盲审控制同质化；
 6. 将用户反馈转化为成对偏好、知识节点价值和隐藏评测结果。
 
-仓库中的报告进一步给出了六库架构、阶段化检索、量化指标、论文证据台账、书籍算子化方案、30 天验证路线，以及“超越 99% 常规 Agent 配置”的可审计统计定义。
+仓库中的基础报告给出了六库架构、阶段化检索、量化指标、论文证据台账、书籍算子化方案、30 天验证路线，以及“超越 99% 常规 Agent 配置”的可审计统计定义。FrontierOS v2 在此基础上增加了：前沿信号发现、来源纯度分层、开放式创意谱系、多维人类品味、真实执行反馈、时间切分评测和 90 天建设路线。
+
+## FrontierOS v2
+
+模型、Soul、提示词和静态书库会逐步商品化。下一阶段真正难复制的能力是：
+
+> 人类原生信号 × 开放式创意谱系 × 多维人类品味 × 真实执行结果 × 时间切分隐藏评测
+
+系统不再只问“本轮哪一个答案最好”，而是持续回答四个问题：哪些新信号尚未进入模型平均先验；哪些暂时不成熟的路线值得保留；人的品味在哪些维度上稳定或变化；哪些创意经过真实世界后仍然成立。
+
+- [FrontierOS v2 完整架构](docs/frontier-os-v2.md)
+- [人类品味协议](docs/human-taste-protocol.md)
+- [90 天实施路线](docs/90-day-roadmap.md)
+- [新增论文证据台账](docs/references.md)
 
 ## 仓库结构
 
@@ -24,6 +37,15 @@
 .
 ├── report/
 │   └── agent-creativity-frontier-2026-08-15.md  # 完整研究报告
+├── docs/
+│   ├── frontier-os-v2.md                         # 持续前沿发现系统
+│   ├── human-taste-protocol.md                   # TasteCore/Context/Frontier
+│   ├── 90-day-roadmap.md                         # 可验收实施路线
+│   └── references.md                             # v2 一手论文证据
+├── schemas/
+│   ├── provenance-tier.schema.json               # 来源纯度与 AI 参与度
+│   ├── taste-event.schema.json                   # 人类品味反馈事件
+│   └── creative-candidate.schema.json            # 创意谱系与七维结果
 ├── data/
 │   └── artifact.json                            # 报告 manifest 与数据快照
 ├── worker/
@@ -42,6 +64,9 @@
 ## 阅读报告
 
 - [完整 Markdown 报告](report/agent-creativity-frontier-2026-08-15.md)
+- [FrontierOS v2：从创意增强到持续前沿发现](docs/frontier-os-v2.md)
+- [可直接实现的人类品味协议](docs/human-taste-protocol.md)
+- [FrontierOS 90 天路线](docs/90-day-roadmap.md)
 - [结构化报告数据](data/artifact.json)
 - [在线交互版本](https://agent-creativity-frontier.focus8351.chatgpt.site)
 
