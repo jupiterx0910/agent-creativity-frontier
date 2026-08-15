@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jupiterx0910/agent-creativity-frontier/schemas/taste-event.schema.json",
+  "title": "FrontierOS taste event",
+  "description": "Captures a reasoned human preference without collapsing uncertainty into a single reward.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "assessor_id",
+    "created_at",
+    "scope",
+    "decision",
+    "candidate_ids",
+    "confidence",
+    "reasons"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "assessor_id": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "scope": {
+      "type": "string",
+      "enum": ["core_candidate", "project", "frontier"]
+    },
+    "project_id": {"type": ["string", "null"]},
+    "audience": {"type": ["string", "null"]},
+    "medium": {"type": ["string", "null"]},
+    "decision": {
+      "type": "string",
+      "enum": ["keep", "reject", "interesting_uncertain"]
+    },
+    "candidate_ids": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "comparison": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["winner", "loser"],
+      "properties": {
+        "winner": {"type": "string"},
+        "loser": {"type": "string"}
+      }
+    },
+    "judge_group": {
+      "type": "string",
+      "enum": ["personal", "expert_community", "real_world", "anti_consensus"]
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quality": {"type": "number", "minimum": 0, "maximum": 1},
+        "structural_novelty": {"type": "number", "minimum": 0, "maximum": 1},
+        "meaningful_surprise": {"type": "number", "minimum": 0, "maximum": 1},
+        "voice_alignment": {"type": "number", "minimum": 0, "maximum": 1},
+        "execution_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "ethical_fit": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "reasons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "localized_annotations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "location", "sentiment", "note"],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "location": {"type": "string"},
+          "sentiment": {"type": "string", "enum": ["like", "dislike", "protect", "question"]},
+          "note": {"type": "string"}
+        }
+      }
+    },
+    "decision_lock": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["locked", "description"],
+      "properties": {
+        "locked": {"type": "boolean"},
+        "description": {"type": "string"},
+        "unlock_condition": {"type": ["string", "null"]}
+      }
+    },
+    "review_after": {"type": ["string", "null"], "format": "date"},
+    "persisted_to": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["taste_core", "taste_context", "taste_frontier", "skill", "knowledge", "project_memory", "none"]
+      },
+      "uniqueItems": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"decision": {"const": "interesting_uncertain"}},
+        "required": ["decision"]
+      },
+      "then": {
+        "required": ["review_after"],
+        "properties": {
+          "scope": {"const": "frontier"},
+          "review_after": {"type": "string", "format": "date"}
+        }
+      }
+    }
+  ]
+}
