@@ -413,6 +413,23 @@ v2 增加五个连续环节：
 
 v2 的核心判断是：人类不应只在最后批准作品。人选择值得追求的问题，贡献生活与现场的异质性，指出应保护的异常，并在低保真阶段锁定关键决定；AI 扩张搜索、维护谱系、发现跨域关系、量化不确定性和执行验证。只有两者形成这个闭环，系统才可能在模型越来越同质、合成内容越来越多的环境中持续走在前沿。
 
+### FrontierOS v2.1：推理解码、评估器审计与人类能力保留
+
+v2.1 补上四个此前不足的底层模块：
+
+1. **Inference Lab**：将 temperature、top-p、min-p、seed、候选预算、base/instruct routing 和 activation steering 作为按模型、版本、任务校准的实验变量；不写死万能参数；
+2. **Evaluator Audit**：审计循环内 Judge 的长度、润色、自模型和共识偏差，测量其前沿压制率与现实结果相关性；
+3. **局部创意模式**：研究 CreativeInstruct 式 span switch，让模型只在概念跃迁、类比和结构突变处进入创意模式；开放模型另研究 BILLY 式 activation steering；
+4. **人类能力保留**：除 AI 在场时的成品提升外，增加无 AI 前后测，防止把工具依赖误报成人类创造力增强。
+
+证据表达同时升级为 claim 级账本：原始值、baseline、单位、绝对百分点、相对提升、论文版本、表格位置、任务、模型、评审类型、支持范围和禁止外推分别记录。例如 Min-p 论文在同为 temperature=1.5 的创意写作设置中报告 56.54% vs 53.18%，正确表达是 **+3.36 个百分点**或约 **+6.32% 相对提升**，不能混写为 +6.6pp。
+
+v2.1 新增入口：
+
+- [Inference Lab](../docs/inference-lab.md)
+- [Evaluator Audit](../docs/evaluator-audit.md)
+- [Claim 级证据 Schema](../schemas/evidence-claim.schema.json)
+
 ## 进一步问题
 
 1. 你最想领先的前三个创作域是什么：写作、视觉、品牌、产品、科学构想、代码/游戏，还是其他？
