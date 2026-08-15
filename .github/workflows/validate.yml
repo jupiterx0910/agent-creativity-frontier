@@ -1,0 +1,31 @@
+name: Validate report site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build Worker package
+        run: npm run build
+
+      - name: Validate artifact
+        run: npm run validate
+
+      - name: Test Chinese rendering contract
+        run: node scripts/test-cjk-rendering.mjs
+

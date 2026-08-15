@@ -1,0 +1,274 @@
+{
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Agent 创意系统：超越 99% 常规配置",
+    "description": "截至 2026-08-15 的论文证据、CreativeOS-99 架构、专门创意知识库、书籍算子化与可审计评测方案。",
+    "generatedAt": "2026-08-15T18:35:13+08:00",
+    "sources": [
+      {
+        "id": "synthesis",
+        "label": "截至 2026-08-15 的一手论文证据综合",
+        "path": "agent_creativity_frontier_report_2026-08-15.md",
+        "query": {
+          "description": "对同行评审论文、预印本和官方 Agent 文档进行机制—效果—适用边界编码；工程优先分为报告作者的决策模型，不是论文效应量。",
+          "executed_at": "2026-08-15T18:35:13+08:00",
+          "language": "manual evidence synthesis",
+          "sql": "SELECT * FROM evidence_weighted_priorities ORDER BY priority_score DESC;",
+          "tables_used": ["manual.evidence_weighted_priorities", "manual.paper_evidence", "manual.creative_knowledge_layers", "manual.book_operator_map", "manual.percentile_gates"],
+          "metric_definitions": [
+            "优先分 = 证据强度×30% + 潜在增益×25% + 跨域迁移×20% + 可控性×15% + 成本效率×10%，各分项按 0–100 标准化。",
+            "观察到的论文效果与本报告的工程估计严格分列；不将跨域推断当成已证实因果。"
+          ]
+        }
+      },
+      {
+        "id": "creative_dc",
+        "label": "CreativeDC (2025)",
+        "href": "https://arxiv.org/html/2512.23601v1"
+      },
+      {
+        "id": "multi_agent",
+        "label": "Multi-agent AI systems outperform human teams in creativity (2026 preprint)",
+        "href": "https://arxiv.org/html/2605.17885v1"
+      },
+      {
+        "id": "recombination",
+        "label": "Enhancing LLM Creativity through Structured Recombination (TACL 2026)",
+        "href": "https://aclanthology.org/2026.tacl-1.20/"
+      },
+      {
+        "id": "evaluation",
+        "label": "Rethinking Creativity Evaluation (EACL 2026)",
+        "href": "https://aclanthology.org/2026.eacl-long.297/"
+      }
+    ],
+    "charts": [
+      {
+        "id": "priority_chart",
+        "title": "证据加权实施优先级",
+        "subtitle": "高分项集中在评测闭环、分相、结构化搜索、创意知识图谱和盲审；单独 Persona、高温与堆 Agent 排在末端。",
+        "type": "bar",
+        "dataset": "priorities",
+        "encodings": {
+          "x": { "field": "intervention", "type": "nominal", "title": "系统改造" },
+          "y": { "field": "priority_score", "type": "quantitative", "title": "优先分（0–100）" },
+          "color": { "field": "layer", "type": "nominal", "title": "层级" }
+        },
+        "options": { "orientation": "horizontal", "grouping": "grouped" },
+        "sourceId": "synthesis"
+      }
+    ],
+    "tables": [
+      {
+        "id": "evidence_table",
+        "title": "论文证据台账",
+        "subtitle": "数值来自原论文；置信度同时考虑同行评审状态、样本、跨域性和评审可靠性。",
+        "dataset": "evidence",
+        "columns": [
+          { "field": "mechanism", "label": "机制" },
+          { "field": "observed_effect", "label": "观察结果" },
+          { "field": "decision", "label": "工程结论" },
+          { "field": "confidence", "label": "置信度" },
+          { "field": "evidence_rank", "label": "证据序" },
+          { "field": "boundary", "label": "边界" }
+        ],
+        "defaultSort": { "field": "evidence_rank", "direction": "desc" },
+        "sourceId": "synthesis"
+      },
+      {
+        "id": "knowledge_table",
+        "title": "专门创意知识库：六库架构",
+        "subtitle": "知识库不是文档堆积；六类知识在发散和收敛阶段承担不同职责。",
+        "dataset": "knowledge_layers",
+        "columns": [
+          { "field": "order", "label": "序号" },
+          { "field": "layer", "label": "子库" },
+          { "field": "content", "label": "核心内容" },
+          { "field": "divergence_use", "label": "发散用途" },
+          { "field": "convergence_use", "label": "收敛用途" },
+          { "field": "primary_metric", "label": "首要指标" }
+        ],
+        "defaultSort": { "field": "order", "direction": "asc" },
+        "sourceId": "synthesis"
+      },
+      {
+        "id": "book_table",
+        "title": "创意书籍到 Agent 算子的编译表",
+        "subtitle": "可操作度是工程评估；方法名本身不产生增益，必须转换为触发条件、表示、算子、停止规则和测试。",
+        "dataset": "books",
+        "columns": [
+          { "field": "framework", "label": "书/方法" },
+          { "field": "operator", "label": "可编译核心" },
+          { "field": "system_layer", "label": "最佳落点" },
+          { "field": "operability", "label": "可操作度" },
+          { "field": "risk", "label": "主要风险" }
+        ],
+        "defaultSort": { "field": "operability", "direction": "desc" },
+        "sourceId": "synthesis"
+      },
+      {
+        "id": "threshold_table",
+        "title": "“操作性前 1%”通过线",
+        "subtitle": "这是一套可审计的工程口径，不等于对互联网上所有 Agent 的总体排名。",
+        "dataset": "thresholds",
+        "columns": [
+          { "field": "order", "label": "序号" },
+          { "field": "gate", "label": "门槛" },
+          { "field": "criterion", "label": "预注册判定" },
+          { "field": "why", "label": "目的" }
+        ],
+        "defaultSort": { "field": "order", "direction": "asc" },
+        "sourceId": "synthesis"
+      }
+    ],
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Agent 创意系统：超越 99% 常规配置"
+      },
+      {
+        "id": "summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n截至 **2026-08-15**，最可信的升级路径不是一份巨型 Soul，也不是更高 temperature，而是把创造力做成一套可测量的搜索与学习系统：**人先给原始种子 → 专门创意知识库供给机制与远距材料 → 显式发散 → 结构化重组 → 维持差异 → 盲审收敛 → 人类品味校准**。\n\n**Soul 是审美宪法，不是创意发动机；专门创意知识库才是长期资产层。** 它不是普通 RAG，而是由创意机制、可执行算子、深层结构、反模式、跨领域类比、品味与实验数据组成的阶段感知搜索空间。模型和提示词会商品化，**创意知识图谱 × 用户品味数据 × 真实实验结果 × 隐藏评测集**更难复制。\n\n大规模多 Agent 实验中，不同 Persona 的总体创意得分与无 Persona 几乎相同（0.267 vs 0.269，p=.803）。相反，CreativeDC 的发散—收敛分相使语义新颖度相对 CoT 提高约 **63.5%**；结构化讨论在 GPT-4.1 上提高 **45.3%**；结构化重组显著降低候选间相似度。\n\n“全网前 1%”不能靠印象宣称。本报告把它定义为：在预注册、等成本、盲评、留出题条件下，相对 100 个代表性配置，至少 99 个的‘本系统更优’后验概率达到 95%，且质量、事实性、效用与风格守住硬门槛。"
+      },
+      {
+        "id": "findings",
+        "type": "markdown",
+        "body": "## Key Findings\n\n1. **创造力至少有三个不同对象：** 单个输出的新颖度、候选集的多样性、最终成品的质量/价值。CreativityPrism 在 8 个任务、17 个指标、17 个模型上发现，跨域新颖度相关性弱；高多样也可能低新颖。\n2. **专门创意知识库必须是结构化且阶段感知的。** 发散前检索抽象机制、算子和遥远结构；完整范例延迟到收敛后，避免知识反过来制造固定与同质化。\n3. **流程结构胜过人格修饰。** 分离发散与收敛、独立分支、结构化重组和私有修订具有更直接的证据。\n4. **人类过早看到 AI 会被锚定。** 60 人 CHI 实验显示，从一开始使用 LLM 会减少原创想法、自我效能和自我归因；先独立构思再引入 AI 更好。\n5. **LLM 提升流畅度却可能压低集体多样性。** 33 人、1,271 个想法的实验中，ChatGPT 使想法数量约 +15%、类别 +27%，但不同用户的想法更同质。\n6. **自动 Judge 不能决定冠军。** EACL 2026 报告同一 Judge 对同一实例重复三次仅 40% 一致；LitBench 中最强通用 Judge 与人类偏好约 73% 一致，专训后约 78%。\n7. **更强的下一阶段在权重层。** CRPO 使用 20 万+人类创意回答与 30+心理测验，将新颖、惊奇、多样和质量分别注入偏好优化；CreativityNeuro 报告 DAT 最多约 +14 个真人百分位，但效用下降证明多目标护栏不可省。"
+      },
+      { "id": "evidence_block", "type": "table", "tableId": "evidence_table" },
+      {
+        "id": "scope",
+        "type": "markdown",
+        "body": "## Scope, Data & Metrics\n\n本报告核读同行评审论文、会议论文、2026 年预印本和官方 Agent 文档，覆盖：跨域创意评测、发散/收敛、结构化重组、多 Agent 讨论、盲审、跨语言思维、跨模态视图、偏好训练、权重空间控制、人机同质化与介入时机。\n\n把创意定义为：**新颖且有价值，并在目标语境中产生有意义的惊奇。** 分别测量：Q 成品质量、N 单个输出新颖度、D 候选集多样性、U 效用/约束满足、V 用户品味与声音一致性、S 有意义的惊奇。硬违规形成惩罚 P。\n\n建议综合分：`C = 100 × Q^0.25 × N^0.25 × D^0.15 × U^0.15 × V^0.10 × S^0.10 − P`。几何均值可防止系统用离题换新颖，或用流畅换创意。"
+      },
+      {
+        "id": "method",
+        "type": "markdown",
+        "body": "## Method\n\n对每项干预编码五个工程维度：证据强度、潜在增益、跨域迁移、可控性、成本效率；权重分别为 30%、25%、20%、15%、10%。图中 0–100 是**实施决策分**，不是论文效应量。同行评审、多人盲评和跨域复现提高证据分；单域预印本、单模型实验、低评审一致性降低证据分。\n\n因果证据与工程推断严格分开。例如，跨语言思维的论文直接支持‘候选多样性提升’，但‘适合所有创作域’只是待验证推断；书籍框架的可操作度来自算子化分析，不是随机对照试验。"
+      },
+      { "id": "priority_block", "type": "chart", "chartId": "priority_chart" },
+      {
+        "id": "architecture",
+        "type": "markdown",
+        "body": "## CreativeOS-99 Architecture\n\n**1｜Human Seed**：Agent 出现前，用户先写 3–7 个粗糙方向、不可妥协项、喜欢/厌恶样例及原因。\n\n**2｜Soul**：250–500 字，只写品味、价值、声音、张力、风险边界和反陈词滥调；不塞方法教程。\n\n**3｜Creative Knowledge Core**：六库结构保存机制、算子、抽象模式、反模式、跨域关系、品味与实验；根据创作阶段控制检索粒度。\n\n**4｜Creative Skills**：每个 Skill 必须有 trigger、representation、operators、diverge budget、converge rule、anti-patterns、stop 和 tests。\n\n**5｜Divergence Engine**：默认 16–24 个互不看答案的分支，覆盖结构化重组、远距联想、矛盾反转、跨语言与可选跨模态。\n\n**6｜Diversity Maintainer**：语义聚类、近邻检索、Vendi/语义熵和结构模板重复率，删除‘同一思想的不同措辞’。\n\n**7｜Blind Convergence**：3 个匿名批评者——新颖、因果/约束、受众/品味；各创作者私有修订，2–3 轮封顶。\n\n**8｜Human Taste Learning**：将反馈拆为稳定偏好、领域技法、项目事实和偶然选择，分别进入 Soul、Skill、知识库、项目记忆或不持久化。\n\n**9｜Weight-level R&D**：累计 200–500 个可靠成对偏好后，再训练 Reward Model、DPO/CRPO 或权重空间方向。"
+      },
+      {
+        "id": "knowledge_core",
+        "type": "markdown",
+        "body": "## 专门创意知识库：Creative Genome\n\n普通知识库回答‘我知道什么’；创意知识库必须回答‘当前应连接什么、执行什么变换、哪些路线已经俗套、什么符合你的品味、历史上什么真正有效’。它不是文档堆积，而是由六个逻辑子库构成的阶段感知创意搜索空间。\n\n**知识单元而非书摘。** 书籍、论文和作品是来源对象；Agent 检索的主体应是带出处、适用域、失效条件和测试的机制、算子及抽象结构。例如一个算子至少声明 trigger、procedure、output budget、stop、evaluation、failure modes 和 provenance。\n\n**阶段化检索防止固定。** 发散前只取抽象结构、问题、算子、遥远机制和不完整刺激；发散中取尚未覆盖的结构簇、相反机制和离群类比；收敛后才开放完整参考、事实资料、规范、近邻、失败案例和用户品味记录。\n\n发散检索目标可定义为：`R_d = .25Rel + .25Remote + .20StructuralFit + .15CoverageGain + .15OperatorFit − .20Redundancy − .15FixationRisk`。收敛阶段降低 Remote，提高事实、约束、效用和品味权重。\n\n**最小数据模型。** 第一版用 Postgres + 向量索引 + 对象存储即可，包含 sources、mechanisms、operators、patterns、anti_patterns、concepts、relations、exemplars、taste_signals、experiments、project_memory、evaluation_tasks。待关系查询成为瓶颈再迁移图引擎。\n\n**量化知识库自身。** 核心指标不是收录数量，而是机制覆盖率、检索差异度、候选覆盖增益、算子成功率、固定率、近邻风险率、知识利用率、品味预测准确率、边际创意增益与新颖—质量交换率。每个知识节点维护 `Value(k)=胜利调用率×平均增益×跨域复现度`；长期无贡献或高固定风险节点降权或进入冷库。\n\n**资产边界。** Soul 是 250–500 字的稳定品味压缩；Skill 是可执行程序；知识库是机制、结构、关系、素材和实验经验；项目记忆只保存当前项目事实；隐藏评测集永不进入生成上下文。真正难复制的不是 Soul，而是经过数百次创作、盲评和失败复盘形成的关系网络与品味数据。"
+      },
+      { "id": "knowledge_block", "type": "table", "tableId": "knowledge_table" },
+      {
+        "id": "soul_skill",
+        "type": "markdown",
+        "body": "## Soul 与 Creative Skill 的正确分工\n\nSoul 回答‘什么值得追求、你是谁、如何取舍’；Skill 回答‘在什么条件下执行什么操作、如何验证’。Soul 适合稳定、稀疏地更新；Skill 应可版本化、可消融、可测试。\n\n一个合格 Skill 的最小模板：\n\n```yaml\nname: bisociation_bridge\ntrigger: 候选聚类过密或缺乏非显然联系\ninput: 目标、受众、约束、已有候选\nrepresentation: 概念图/功能树/叙事状态图\noperators: 远距抽样、属性映射、矛盾反转、结构合并\ndiverge_budget: 12\nconverge_rule: 新颖×效用几何均值；事实性硬门槛\nanti_patterns: 换皮、随机拼贴、陈词滥调、解释替代作品\nstop: 语义覆盖增益连续两轮低于 5%\ntests: 3 正例 + 2 反例 + 1 对抗例\n```\n\n温度只用于分支内扰动；它与新颖度通常只有弱相关，却更容易损害连贯性。更多 Agent、更多轮次和更多 token 同样不是单调增益。"
+      },
+      { "id": "book_block", "type": "table", "tableId": "book_table" },
+      {
+        "id": "frontier",
+        "type": "markdown",
+        "body": "## Better-than-Prompting Methods\n\n**多模型而非多 Persona：** 2–4 个不同训练谱系、不同语言和不同模态的模型比表面角色变化更可能形成真实分布差异。\n\n**外部结构搜索：** 将候选转成概念图、功能树、故事状态图或视觉构图图，再执行交叉、删除、替换、约束反转和最短编辑路径。\n\n**进化式种群：** 维持多个 island，局部选择并偶尔迁移高新颖候选；不要全局只保留一个最佳答案。\n\n**创意偏好训练：** 用真实人类成对偏好分别训练新颖、惊奇、多样、质量和用户品味信号；避免单一 Reward 把模型推向极端。\n\n**反陈词滥调记忆：** 生成前只给抽象禁区，生成后做近邻检索与批判，避免完整负例反过来成为锚点。"
+      },
+      {
+        "id": "evaluation_design",
+        "type": "markdown",
+        "body": "## 99th-percentile Evaluation Design\n\n**任务集：** 60 个留出任务，叙事、品牌、产品、视觉方向、科学/技术构想、跨域综合各 10 个；20% 每季度更新。\n\n**基线池：** 100 个代表性配置 = 主流模型/版本 × 基础提示、长 Persona、CoT、高温、自我反思、Best-of-N、群聊、RAG、常见创意提示和通用 Agent。统一美元成本和时延预算。\n\n**评审：** 自动指标只淘汰近重复和硬失败；前 10 个配置做随机化成对盲评，每题 3 位评审；20% 重复样本测稳定性；Krippendorff α < .40 时暂停结论；用 Bradley–Terry 或分层贝叶斯模型估计胜率。"
+      },
+      { "id": "threshold_block", "type": "table", "tableId": "threshold_table" },
+      {
+        "id": "roadmap",
+        "type": "markdown",
+        "body": "## 30-day Validation Sprint\n\n**Day 1–3｜品味与任务**：收集 25 个喜欢、25 个不喜欢的样例及具体原因，冻结任务集与基线规则。\n\n**Day 4–7｜基线**：Soul v0、rubric、盲化、日志；跑基础 Agent、长 Persona、CoT、高温、Best-of-N 和普通多 Agent。\n\n**Day 8–12｜Skills + 知识单元**：实现 12 个核心算子；将首批 8–12 本书和关键论文拆成 100–300 个带出处、触发条件、失效条件和测试的原子知识单元。\n\n**Day 13–17｜六库检索 + 发散种群**：上线六库最小模型、阶段化检索、16–24 分支、语义聚类、Vendi/语义熵、近邻检索和预算控制；记录每个知识节点与算子的边际贡献。\n\n**Day 18–21｜盲审收敛**：3 批评者、私有修订、2–3 轮上限、事实/版权近邻/硬约束验证。\n\n**Day 22–25｜消融**：逐项关闭 Soul、Skills、创意知识库、阶段化检索、跨语言、多模型、盲审和用户种子，测量独立增益、固定率、成本与时延。\n\n**Day 26–28｜人类盲评**：只评前 10 个配置，分析一致性；LLM Judge 仅做抽样与异常检测。\n\n**Day 29–30｜锁版**：输出 CreativeOS-99 v1、知识节点价值、失败模式、领域策略和下一轮训练计划；未过预注册阈值则不宣称前 1%。"
+      },
+      {
+        "id": "limits",
+        "type": "markdown",
+        "body": "## Limits, Uncertainty & Robustness\n\n- 2026 年多项关键结果仍是预印本，尤其是大规模多 Agent 与权重空间控制。\n- 创意高度领域化；科学构想、文学、视觉设计和广告不能共用一个代理指标。\n- 语义距离会奖励离题，质量 Judge 会奖励标准答案；二者都可能被投机。\n- 当前最强模型变化很快，应使用实时模型门控和本地任务结果，不写死单一模型。\n- 目前没有可信的跨域随机对照试验能证明‘专门创意知识库整体’带来固定百分比增益；它的优先级来自结构化重组、跨域类比、检索时机、设计固定和个性化偏好的联合证据，必须通过消融验证。\n- 书籍框架与优先分是工程综合判断，不是随机对照试验的因果效应。\n- 任何‘前 1%’只对已定义的基线总体、任务、预算和时间成立。"
+      },
+      {
+        "id": "next_steps",
+        "type": "markdown",
+        "body": "## Recommended Next Steps\n\n1. **先搭评测、日志和六库最小数据模型，再写巨型 Soul。** 没有盲评，知识库只会变成昂贵的书摘仓库。\n2. **先拆 100–300 个原子知识单元。** 每条必须有出处、触发条件、结构表示、失效条件和测试。\n3. **先做 API 编排版。** 验证知识库、阶段化检索、分相、结构化重组、跨语言种群、语义去重和盲审的独立增益。\n4. **把你的校准变成成对偏好。** 每次只回答‘A/B 哪个更好、好在哪里、哪里绝不能保留’，并进入品味与实验库。\n5. **累计数据后再训练。** 200–500 个高质量偏好足以开始重排序或轻量 Reward；更多数据再考虑 CRPO。\n6. **每季度重跑隐藏题。** 新模型上线时先闯本地门控，不因榜单名次直接替换。"
+      },
+      {
+        "id": "questions",
+        "type": "markdown",
+        "body": "## Further Questions\n\n1. 最想领先的前三个创作域是什么：写作、视觉、品牌、产品、科学构想、代码/游戏，还是其他？\n2. 单次冠军级作品可接受多少美元、多少分钟、多少次人工选择？\n3. 哪些偏好应永久进入 Soul，哪些只属于当前项目？\n4. 能否提供 50–200 个‘喜欢/不喜欢 + 原因’样本，作为第一批品味数据？\n5. 最终目标是增强你的创作、让 Agent 独立创作，还是形成团队可复制的平台？"
+      },
+      {
+        "id": "sources_notes",
+        "type": "markdown",
+        "body": "## Primary Sources\n\n核心论文：[CreativityPrism](https://arxiv.org/html/2510.20091v3) · [Assessing Creativity of LLMs](https://arxiv.org/html/2605.13450v1) · [Multi-agent creativity](https://arxiv.org/html/2605.17885v1) · [CreativeDC](https://arxiv.org/html/2512.23601v1) · [Structured Recombination](https://aclanthology.org/2026.tacl-1.20/) · [CreativityNeuro](https://arxiv.org/html/2607.01433v1) · [Automated Creativity Evaluation](https://arxiv.org/html/2606.11762v1) · [Language of Thought](https://aclanthology.org/2026.acl-long.628/) · [Multi-Novelty](https://arxiv.org/html/2502.12700v1) · [Creative Preference Optimization](https://aclanthology.org/2025.findings-emnlp.509/) · [Rethinking Creativity Evaluation](https://aclanthology.org/2026.eacl-long.297/) · [LitBench](https://aclanthology.org/2026.eacl-long.362/) · [Timing Matters](https://arxiv.org/pdf/2502.06197) · [Homogenization Effects](https://arxiv.org/html/2402.01536) · [Generative AI & collective diversity](https://www.science.org/doi/10.1126/sciadv.adn5290) · [Art or Artifice?](https://arxiv.org/html/2309.14556v3) · [Associative Thinking](https://arxiv.org/html/2405.06715v1) · [AutoTRIZ](https://arxiv.org/html/2403.13002v1) · [Multilingual Prompting](https://aclanthology.org/2025.emnlp-main.324/) · [Temperature](https://arxiv.org/abs/2405.00492) · [OpenClaw SOUL](https://docs.openclaw.ai/concepts/soul)."
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "status": "ready",
+    "generatedAt": "2026-08-15T18:35:13+08:00",
+    "datasets": {
+      "priorities": [
+        { "intervention": "评测与反馈闭环", "priority_score": 95, "evidence_strength": 94, "potential_upside": 95, "transferability": 96, "controllability": 92, "cost_efficiency": 91, "layer": "评测", "time_to_value": "1–2 周" },
+        { "intervention": "发散/收敛显式分相", "priority_score": 92, "evidence_strength": 90, "potential_upside": 94, "transferability": 91, "controllability": 96, "cost_efficiency": 94, "layer": "流程", "time_to_value": "1–3 天" },
+        { "intervention": "结构化重组/远距联想", "priority_score": 90, "evidence_strength": 88, "potential_upside": 94, "transferability": 91, "controllability": 89, "cost_efficiency": 86, "layer": "搜索", "time_to_value": "1–2 周" },
+        { "intervention": "创意知识图谱 + 阶段化检索", "priority_score": 89, "evidence_strength": 76, "potential_upside": 96, "transferability": 94, "controllability": 88, "cost_efficiency": 74, "layer": "知识", "time_to_value": "2–4 周" },
+        { "intervention": "3 Agent 盲审 + 私有修订", "priority_score": 87, "evidence_strength": 83, "potential_upside": 89, "transferability": 88, "controllability": 92, "cost_efficiency": 82, "layer": "收敛", "time_to_value": "3–5 天" },
+        { "intervention": "人类种子 + 延迟 AI", "priority_score": 86, "evidence_strength": 88, "potential_upside": 86, "transferability": 85, "controllability": 96, "cost_efficiency": 95, "layer": "人机协作", "time_to_value": "当天" },
+        { "intervention": "语义去重 + 多样性维持", "priority_score": 85, "evidence_strength": 82, "potential_upside": 88, "transferability": 90, "controllability": 89, "cost_efficiency": 81, "layer": "搜索", "time_to_value": "1 周" },
+        { "intervention": "多模型/跨谱系种群", "priority_score": 82, "evidence_strength": 79, "potential_upside": 87, "transferability": 86, "controllability": 83, "cost_efficiency": 70, "layer": "搜索", "time_to_value": "3–7 天" },
+        { "intervention": "跨语言思维分支", "priority_score": 78, "evidence_strength": 78, "potential_upside": 81, "transferability": 75, "controllability": 90, "cost_efficiency": 86, "layer": "搜索", "time_to_value": "1–2 天" },
+        { "intervention": "跨模态视图", "priority_score": 74, "evidence_strength": 75, "potential_upside": 88, "transferability": 76, "controllability": 72, "cost_efficiency": 61, "layer": "搜索", "time_to_value": "1–2 周" },
+        { "intervention": "CRPO 创意偏好优化", "priority_score": 73, "evidence_strength": 83, "potential_upside": 91, "transferability": 66, "controllability": 73, "cost_efficiency": 45, "layer": "训练", "time_to_value": "3–8 周" },
+        { "intervention": "Soul / Persona 单独使用", "priority_score": 52, "evidence_strength": 58, "potential_upside": 45, "transferability": 62, "controllability": 90, "cost_efficiency": 92, "layer": "身份", "time_to_value": "当天" },
+        { "intervention": "仅拆书做长提示", "priority_score": 41, "evidence_strength": 39, "potential_upside": 45, "transferability": 55, "controllability": 71, "cost_efficiency": 68, "layer": "提示", "time_to_value": "2–5 天" },
+        { "intervention": "提高 temperature", "priority_score": 31, "evidence_strength": 67, "potential_upside": 25, "transferability": 31, "controllability": 84, "cost_efficiency": 95, "layer": "采样", "time_to_value": "分钟" },
+        { "intervention": "继续堆 Agent/轮数/token", "priority_score": 24, "evidence_strength": 72, "potential_upside": 18, "transferability": 25, "controllability": 70, "cost_efficiency": 12, "layer": "规模", "time_to_value": "立即" }
+      ],
+      "evidence": [
+        { "mechanism": "发散→收敛分相", "observed_effect": "语义新颖度 vs CoT +63.5%；效用 90.9%", "decision": "API 级首要改造", "confidence": "中高", "evidence_rank": 5, "boundary": "单一编程题生成域；Qwen3-235B" },
+        { "mechanism": "结构化讨论", "observed_effect": "GPT-4.1 创意 0.308 vs 0.212，+45.3%", "decision": "结构比更多 token 重要", "confidence": "中", "evidence_rank": 4, "boundary": "6 个应用问题；预印本" },
+        { "mechanism": "3→6 Agents", "observed_effect": "总体创意无显著提升；新颖↑、效用↓", "decision": "默认 3 个强角色", "confidence": "中", "evidence_rank": 4, "boundary": "同一大规模多 Agent 预印本" },
+        { "mechanism": "Persona / Soul", "observed_effect": "不同 Persona 0.267 vs 无 Persona 0.269，p=.803", "decision": "用于品味与声音，不作为发散引擎", "confidence": "中", "evidence_rank": 4, "boundary": "Persona 降新颖、升效用；任务特定" },
+        { "mechanism": "结构化重组", "observed_effect": "成对相似度 0.387/0.402 vs 0.659/0.731", "decision": "书籍应编译为表示+算子", "confidence": "中高", "evidence_rank": 5, "boundary": "菜谱域；人评一致性 α≈.20" },
+        { "mechanism": "跨语言思维", "observed_effect": "多样性 +5.3–7.7 点；质量 −1.0–2.2 点", "decision": "只做候选分支，中文最终交付", "confidence": "中高", "evidence_rank": 5, "boundary": "15 种语言；推理模型；多样性任务" },
+        { "mechanism": "跨模态视图", "observed_effect": "新颖率 32.7%→68.7%；正确率 93.8%→76.6%", "decision": "必须后接事实/约束验证器", "confidence": "中", "evidence_rank": 4, "boundary": "909,500 输出；任务特定" },
+        { "mechanism": "延迟 AI 介入", "observed_effect": "从一开始使用 AI 减少原创想法与自我效能", "decision": "用户先给 3–7 个种子", "confidence": "高", "evidence_rank": 6, "boundary": "60 人 CHI 受控实验；健康写作议题" },
+        { "mechanism": "人机同质化", "observed_effect": "组间语义差异 0.24 vs 0.28，d=.47；想法数 +15%", "decision": "保留反同质化和人的所有权", "confidence": "高", "evidence_rank": 6, "boundary": "33 人、1,271 想法；早期 ChatGPT" },
+        { "mechanism": "专家级写作差距", "observed_effect": "LLM 通过 TTCW 测试数比专业作者低 3–10×", "decision": "对抗陈词滥调和结构同质化", "confidence": "高", "evidence_rank": 6, "boundary": "10 专家、48 短篇；2024 模型" },
+        { "mechanism": "LLM-as-Judge", "observed_effect": "同一实例三次仅 40% 一致；通用 Judge≈73% 人偏好一致", "decision": "自动评审只筛选，不定冠军", "confidence": "高", "evidence_rank": 6, "boundary": "不同领域的可靠性不同" },
+        { "mechanism": "CRPO 偏好训练", "observed_effect": "20 万+人类回答、30+心理测验；人评与自动评测超多种基线", "decision": "开放权重阶段优先", "confidence": "中高", "evidence_rank": 5, "boundary": "英文、7B/8B；外推到更大模型未知" },
+        { "mechanism": "权重空间控制", "observed_effect": "DAT 最多 +14 真人百分位；原创 d≈.36–.40", "decision": "研究增强层，联合质量护栏", "confidence": "中", "evidence_rank": 4, "boundary": "2026-07 预印本；AUT 效用下降" }
+      ],
+      "knowledge_layers": [
+        { "order": 1, "layer": "创意机制库", "content": "双联、概念融合、设计固定、发散/收敛等原子机制", "divergence_use": "选择搜索范式", "convergence_use": "解释候选为何有效或失效", "primary_metric": "机制覆盖率" },
+        { "order": 2, "layer": "创意算子库", "content": "TRIZ、SCAMPER、约束反转、视角迁移等可执行变换", "divergence_use": "直接产生差异候选", "convergence_use": "记录算子边际增益", "primary_metric": "算子成功率" },
+        { "order": 3, "layer": "结构与模式库", "content": "故事状态图、产品功能树、广告结构、视觉构图", "divergence_use": "重组深层结构", "convergence_use": "检查完整性与套路化", "primary_metric": "结构覆盖增益" },
+        { "order": 4, "layer": "反创意库", "content": "陈词滥调、伪深刻句式、AI 常见结尾、换皮创新", "divergence_use": "仅给抽象禁区", "convergence_use": "检测并修复平庸模式", "primary_metric": "固定率/陈词滥调率" },
+        { "order": 5, "layer": "跨领域类比图谱", "content": "自然、工程、社会、艺术中的功能与机制关系", "divergence_use": "找表面遥远但结构相似的材料", "convergence_use": "验证类比是否成立", "primary_metric": "远距结构匹配率" },
+        { "order": 6, "layer": "品味与实验库", "content": "A/B 偏好、理由、稳定性、配置、成本和盲评结果", "divergence_use": "提供轻量审美方向", "convergence_use": "重排序并更新 Soul/Skill/Reward", "primary_metric": "品味预测准确率" }
+      ],
+      "books": [
+        { "framework": "Young《产生创意的方法》", "operator": "收集→消化→孵化→顿悟→验证", "system_layer": "全局相位控制", "operability": 5, "risk": "抽象，需配具体算子" },
+        { "framework": "Koestler《创造行为》", "operator": "双联/远距领域相交", "system_layer": "结构重组与跨域检索", "operability": 5, "risk": "随机拼贴失去效用" },
+        { "framework": "Altshuller / TRIZ", "operator": "矛盾、40 原理、理想最终结果", "system_layer": "工程/产品 Skill", "operability": 5, "risk": "矛盾识别或领域迁移错误" },
+        { "framework": "Le Guin《掌舵写作》", "operator": "句法、节奏、视角、声音练习", "system_layer": "写作 verifier/skill", "operability": 5, "risk": "主要适用于叙事写作" },
+        { "framework": "Eberle / SCAMPER", "operator": "替代、组合、适配、修改、他用、删除、逆转", "system_layer": "候选扩展", "operability": 4, "risk": "容易形成浅层变体" },
+        { "framework": "de Bono《六顶思考帽》", "operator": "临时切换判断视角", "system_layer": "评审编排", "operability": 4, "risk": "角色表演压过问题" },
+        { "framework": "Tharp《创意习惯》", "operator": "仪式、素材盒、日常训练", "system_layer": "项目记忆与种子库", "operability": 4, "risk": "单次生成增益有限" },
+        { "framework": "Catmull《创新公司》", "operator": "Braintrust、坦率反馈、作品与作者分离", "system_layer": "盲评与复盘", "operability": 4, "risk": "批评过多导致平均化" },
+        { "framework": "Rubin《创造性行为》", "operator": "注意、敏感度、品味、删减", "system_layer": "Soul 与策展", "operability": 3, "risk": "哲学性强、难直接评测" },
+        { "framework": "Cameron《艺术家之路》", "operator": "Morning Pages、解除自审", "system_layer": "人类种子与反固定", "operability": 3, "risk": "不宜模板化自动执行" }
+      ],
+      "thresholds": [
+        { "order": 1, "gate": "总体排名", "criterion": "至少 99/100 基线的 P(本系统更优) ≥ .95", "why": "把前 1% 变成统计声明" },
+        { "order": 2, "gate": "强基线胜率", "criterion": "对最强 10 个基线的平均盲评胜率 95% CI 下界 ≥ 60%", "why": "避免只碾压弱配置" },
+        { "order": 3, "gate": "护栏", "criterion": "质量、效用、事实性、安全不劣于最强基线 >2pp", "why": "防止用离题和幻觉换新颖" },
+        { "order": 4, "gate": "跨域", "criterion": "6 个领域中至少 5 个的新颖度提升成立", "why": "避免单一领域拉高总分" },
+        { "order": 5, "gate": "复现", "criterion": "隐藏题与新模型版本上复现", "why": "防止提示过拟合与榜单漂移" }
+      ]
+    }
+  }
+}

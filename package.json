@@ -1,0 +1,12 @@
+{
+  "name": "agent-creativity-frontier",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bash scripts/build.sh",
+    "validate": "node scripts/validate-artifact.mjs",
+    "test:cjk": "npm run build && node scripts/test-cjk-rendering.mjs",
+    "check": "npm run build && node scripts/validate-artifact.mjs && node scripts/test-cjk-rendering.mjs"
+  },
+  "displayName": "Agent \u521b\u610f\u7cfb\u7edf\uff1a\u8d85\u8d8a 99% \u5e38\u89c4\u914d\u7f6e"
+}
